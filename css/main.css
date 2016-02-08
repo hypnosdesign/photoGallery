@@ -11,15 +11,19 @@ body {
 }
 
 main {
-	max-width: 90%;
+	max-width: 100%;
 	margin: 0 auto;
+	padding: 0 1em;
 }
 
 .images {
-	float: left;
-	margin: 1em 1em 0 0;
+	display: inline-table;
+	margin: 2em 1em 0;
 	max-width: 200px;
+	text-align: left;
 }
+
+
 
 
 /*	----------------------------------------

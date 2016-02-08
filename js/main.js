@@ -1,3 +1,3 @@
 // my custom jquery plugin
 
-/* my JavaScript
+/* my JavaScript */
