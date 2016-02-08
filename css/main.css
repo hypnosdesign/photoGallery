@@ -1,0 +1,38 @@
+/*	----------------------------------------
+	GLOBAL
+   	----------------------------------------  */
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: #FAFAFA;
+	text-align: center;
+}
+
+main {
+	max-width: 90%;
+	margin: 0 auto;
+}
+
+.images {
+	float: left;
+	margin: 1em 1em 0 0;
+}
+
+
+/*	----------------------------------------
+	FOOTER
+   	----------------------------------------  */
+footer {
+	padding: 2em 0;
+}
+
+/*	----------------------------------------
+	UTILITIES
+   	----------------------------------------  */
+/*		micro clearfix by Nicolas Gallagher
+		http://nicolasgallagher.com/micro-clearfix-hack/ */														*
+
+.cf:before, .cf:after { content: " "; display: table; }
+.cf:after { clear: both; }
