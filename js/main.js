@@ -8,11 +8,13 @@
   /* Funzioni (Functions)
   ***********************************************/
 
+  // print a message and append it in the gallery id.
   function print(message) {
     var doc = document.getElementById("gallery");
     doc.innerHTML = message;
   }
 
+  // return html of the thumbnail
   function getFigure() {
     report += "<figure class='images'>";
     report += '<a href="'+ photo.image +'"><img class="thumb" src="'+ photo.thumb +'" alt="'+ photo.alt_tag +'">';
@@ -25,8 +27,8 @@
   /* Cicli (Loops) 
   ***********************************************/
 
+  // show images in the page
   for (var i = 0; i < photos.length; i++) {
     photo = photos[i];
-    messages = getFigure(photo);
-    print(messages);
+    print(getFigure(photo));
   } // fine ciclo for (End for cicle)
