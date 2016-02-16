@@ -6,8 +6,10 @@
 }
 
 body {
-	background: #FAFAFA;
+	background: #ddd;
 	text-align: center;
+	font-family: Roboto, sans-serif;
+	
 }
 
 main {
@@ -23,6 +25,70 @@ main {
 	text-align: left;
 }
 
+header {
+	background-color: #fff;
+	padding-bottom: 1em;
+	position: fixed;
+	width: 100%;
+	margin-bottom: 172px;
+	z-index: 3;
+}
+
+header h1 {
+	margin-top: .8em;
+	margin-left: 2em;
+
+	font-size: 1.6em;
+	color: #0d0d0d;
+	position: absolute;
+}
+
+input[type="text"] {
+	font-size: 16px;
+	width: 300px;
+	padding: .6em;
+	margin-top: 1em;
+	border: 1px solid #bbb;
+	border-radius: 5px;
+	outline: none;
+}
+
+
+/*	----------------------------------------
+	GALLERY
+   	----------------------------------------  */
+
+#gallery {
+	padding-top: 72px;
+}
+
+figure {
+	position: relative;
+	z-index: 1;
+}
+
+figcaption {
+	position: absolute;
+	bottom: 4px;
+	padding: 2em;
+	color: transparent;
+	transition: .4s linear;
+	z-index: 2;
+	font-size: 0.7em;
+	height: 200px;
+}
+
+figcaption span {
+	display: block;
+	font-size: 1.2em;
+	font-weight: 700;
+	margin-bottom: 4px;
+}
+
+figcaption:hover {
+	color: #FAFAFA;
+	background-color: rgba(0, 0, 0, 0.6);
+}
 
 
 
@@ -33,7 +99,7 @@ footer {
 	font-size: 65%;
 	padding: 2em 0;
 	max-width: 980px;
-	margin: 0 auto;
+	margin: 2em auto 0;
 }
 
 footer p {
