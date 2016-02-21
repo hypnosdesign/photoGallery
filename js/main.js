@@ -22,7 +22,7 @@ function print(message) {
 function getFigure() {
   report += '<a class="phot" href="'+ photo.image +'"><figure class="images">';
   report += '<img class="thumb" src="'+ photo.thumb +'" alt="'+ photo.alt_tag +'">';
-  report += '<figcaption><span>'+ photo.title +'</span>'+ photo.caption +'</figcaption>';
+  report += '<figcaption class="caption"><span>'+ photo.title +'</span>'+ photo.caption +'</figcaption>';
   report += "</figure></a>"; 
   return report;
 }
@@ -87,28 +87,42 @@ $(".icon-hide").click(function(){
 // I use:
 // .keyup()
 // :Contains()
-   
+
 // searching function
 function searching(input, list) {
-
+  
   // Oni volta che input cambia allora...
   $(input).keyup( function () {
+    
     // setto variabile per i valori e trasformo in lower case
+    // https://css-tricks.com/snippets/jquery/make-jquery-contains-case-insensitive/
+    $.expr[":"].contains = $.expr.createPseudo(function(arg) {
+      return function( elem ) {
+        return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+      };
+    });
+
     var typed = $(this).val().toLowerCase();
+      
+      // if typed is not a blank space
       if(typed !== " ") {
-        // se non trovo la stringa elimina a
+
+        // fadeout the anchors if type is not contained in list
         $(list).find("a:not(:contains("+typed+"))").fadeOut("fast");
-        // se trovo invece mostra
+        // fadein the anchors is contained in list
         $(list).find("a:contains("+typed+")").fadeIn("slow");
+
       }else {
-        // altrimenti mostra sempre
+
+        // if type is equal to a white space or result not found
         $(list).find("figure").show();
+
       }
+
   });
 }
-//start searching function with param
+//start searching function passing the arguments
 searching($("#search"),$("#gallery"));
-
 
 
 
