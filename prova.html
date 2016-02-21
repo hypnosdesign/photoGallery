@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<title>Prova slide</title>
+		
+		<link type="text/plain" rel="author" href="humans.txt" />
+		<link rel='stylesheet' href='css/normalize.css'>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Droid+Sans+Mono">
+		<style>
+			html,body {
+				height: 100%;
+			}
+			#overlay {
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0,0,0,.5);
+				position: fixed;
+				z-index: 9;
+
+			}
+
+			#container {
+					max-width: 90%;
+					margin: 0 auto;
+					position: relative;
+					z-index: 10;
+					
+			}
+
+			#container img {
+				max-width: 100%;
+			}
+
+			.controllers img{
+				position: absolute;
+				width: 30px;
+				height: 30px;
+				z-index: 11;
+				border-radius: 50%;
+				background-color: #fff;
+				padding: 2%;
+
+			}
+
+			.close {
+				top: 2%;
+				right: 2%;
+			}
+
+			.next {
+				top: 40%;
+				right: -15px;
+			}
+
+			.prev {
+				top: 40%;
+				left: -15px;
+			}
+
+			.controllers img:hover {
+				background-color: #bbb;
+				width: 33px;
+				height: 33px;
+				top: 39.7%;
+				left: -18px
+			}
+			.controllers img.next:hover{
+				left: initial;
+				right: -18px;
+			}
+
+			.controllers img.close:hover{
+				top: 2%;
+				right: 2%;
+				left: initial;
+			}
+
+			.black {
+				position: relative;
+				z-index: 1;
+			}
+
+
+
+
+			
+		</style>
+	</head>
+	<body>
+	<div class="balck">
+		isgaidgagdajkdjaj
+	</div>
+
+	<div id="overlay">
+		<div id="container">
+			<img src="img/01.jpg">
+			<div class="controllers">
+				<img class="close" src="img/icons/cross.svg" alt="">
+				<img class="next"src="img/icons/chevron-thin-right.svg" alt="">
+				<img class="prev"src="img/icons/chevron-thin-left.svg" alt="">
+			</div>
+		</div>
+	</div>
+
+	
+	
+
+
+		<script src="js/jquery.js"></script>
+		<script src="js/prova.js"></script>
+	</body>
+</html>

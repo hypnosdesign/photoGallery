@@ -20,9 +20,9 @@ function print(message) {
 
 // return html of the thumbnail
 function getFigure() {
-  report += '<a class="phot" href="'+ photo.image +'"><figure class="images">';
-  report += '<img class="thumb" src="'+ photo.thumb +'" alt="'+ photo.alt_tag +'">';
-  report += '<figcaption class="caption"><span>'+ photo.title +'</span>'+ photo.caption +'</figcaption>';
+  report += '<a class="link-photo" href="'+ photo.image +'"><figure class="images">';
+  report += '<img class="thumb" src="'+ photo.thumb +'" alt="'+ photo.title +'">';
+  report += '<figcaption class="caption">'+ photo.caption +'</figcaption>';
   report += "</figure></a>"; 
   return report;
 }
@@ -46,40 +46,53 @@ for (var i = 0; i < photos.length; i++) {
 
 /* Galleria (Gallery) 
 ***********************************************/
-var $overLay = $("<div class='overlay'></div>");
-var $photo = $("<img>");
-var $icons = $('<img class="icon icon-hide" src="img/icons/cross.svg">'
-               +'<img class="icon icon-right" src="img/icons/chevron-thin-right.svg">'
-               +'<img class="icon icon-left" src="img/icons/chevron-thin-left.svg">'
+var $overLay = $('<div class="overlay"></div>');
+var $container = $('<div class="container"></div>');
+var $controllers = $('<div class="controllers"></div>');
+var $img = $('<img>');
+var $icons = $('<img class="close" src="img/icons/cross.svg">'
+               +'<img class="next" src="img/icons/chevron-thin-right.svg">'
+               +'<img class="prev" src="img/icons/chevron-thin-left.svg">'
                );
 
-//append overlay to body
+//structure
 $("body").append($overLay);
-// append images to overlay and store in a variable
-var $controllers = $overLay.append($photo);
-// append icons to images
+$overLay.append($container);
+$container.append($img);
+$container.append($controllers);
 $controllers.append($icons);
+var $title = $("img").attr("alt");
+console.log($title);
 // hide overlay
 $overLay.hide();
 
 //click image and show overlay
-$("a.phot").click(function(e){
+$("#gallery").children().click(function(e){
   e.preventDefault();
   var $location = $(this).attr("href");
-  $overLay.show();
-  $photo.show();
-  $photo.attr("src", $location);
+  var $title = $(this).attr("alt");
+  console.log($title);
+  var $caption = $(this).text();
+  var $desc = $container.append('<p>'+$caption+'</p>')
 
+  $img.attr("src", $location);
+  $overLay.show();
+  
   // test
   console.log(this);
   console.log($location);
+  console.log($caption)
+
+  // click and hide overlay and caption
+  $(".overlay").click(function(){
+    $(this).hide('slow');
+    $('.container p').remove();
+
+  });
+
 });
 
-// click and hide overlay
-$(".icon-hide").click(function(){
-  $overLay.fadeOut('slow');
-  $photo.fadeOut('fast');
-});
+
 
 
 /* Barra di ricerca (Search bar) 
@@ -123,76 +136,3 @@ function searching(input, list) {
 }
 //start searching function passing the arguments
 searching($("#search"),$("#gallery"));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-// $("#search").keypress(function(e) {
-//   var typed = e.val().toLowerCase();
-//     $( "figcaption:contains(e)" ).hide(); 
-// });
-
-/* note:
-jQuery(":contains(text)");
-$( "div:contains('John')" ).css( "text-decoration", "underline" );
-
-
-$("#search").on("keyup", function() {
-
-    var userQuery = $(this).val().toLowerCase();
-    
-    $('li p').each(function() {
-        var name = $(this).text().toLowerCase();
-        $(this).closest('li')[ name.indexOf(userQuery) !== -1 ? 'show' : 'hide' ]();
-        
-    });
-    
-}); 
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
