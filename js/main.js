@@ -20,10 +20,10 @@ function print(message) {
 
 // return html of the thumbnail
 function getFigure() {
-  report += "<figure class='images'>";
-  report += '<a href="'+ photo.image +'"><img class="thumb" src="'+ photo.thumb +'" alt="'+ photo.alt_tag +'">';
-  report += '<figcaption><span>'+ photo.title +'</span>'+ photo.caption +'</figcaption></a>';
-  report += "</figure>"; 
+  report += '<a class="phot" href="'+ photo.image +'"><figure class="images">';
+  report += '<img class="thumb" src="'+ photo.thumb +'" alt="'+ photo.alt_tag +'">';
+  report += '<figcaption><span>'+ photo.title +'</span>'+ photo.caption +'</figcaption>';
+  report += "</figure></a>"; 
   return report;
 }
 
@@ -53,32 +53,106 @@ var $icons = $('<img class="icon icon-hide" src="img/icons/cross.svg">'
                +'<img class="icon icon-left" src="img/icons/chevron-thin-left.svg">'
                );
 
-//append overlay
+//append overlay to body
 $("body").append($overLay);
-// append images to averlay and store this in a variable
+// append images to overlay and store in a variable
 var $controllers = $overLay.append($photo);
 // append icons to images
 $controllers.append($icons);
+// hide overlay
 $overLay.hide();
 
 //click image and show overlay
-$(".images a").click(function(e){
+$("a.phot").click(function(e){
   e.preventDefault();
   var $location = $(this).attr("href");
   $overLay.show();
+  $photo.show();
   $photo.attr("src", $location);
 
+  // test
   console.log(this);
   console.log($location);
 });
 
 // click and hide overlay
 $(".icon-hide").click(function(){
-  $overLay.hide();
-})
+  $overLay.fadeOut('slow');
+  $photo.fadeOut('fast');
+});
+
+
+/* Barra di ricerca (Search bar) 
+***********************************************/
+// I use:
+// .keyup()
+// :Contains()
+   
+// searching function
+function searching(input, list) {
+
+  // Oni volta che input cambia allora...
+  $(input).keyup( function () {
+    // setto variabile per i valori e trasformo in lower case
+    var typed = $(this).val().toLowerCase();
+      if(typed !== " ") {
+        // se non trovo la stringa elimina a
+        $(list).find("a:not(:contains("+typed+"))").fadeOut("fast");
+        // se trovo invece mostra
+        $(list).find("a:contains("+typed+")").fadeIn("slow");
+      }else {
+        // altrimenti mostra sempre
+        $(list).find("figure").show();
+      }
+  });
+}
+//start searching function with param
+searching($("#search"),$("#gallery"));
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+// $("#search").keypress(function(e) {
+//   var typed = e.val().toLowerCase();
+//     $( "figcaption:contains(e)" ).hide(); 
+// });
+
+/* note:
+jQuery(":contains(text)");
+$( "div:contains('John')" ).css( "text-decoration", "underline" );
+
+
+$("#search").on("keyup", function() {
+
+    var userQuery = $(this).val().toLowerCase();
+    
+    $('li p').each(function() {
+        var name = $(this).text().toLowerCase();
+        $(this).closest('li')[ name.indexOf(userQuery) !== -1 ? 'show' : 'hide' ]();
+        
+    });
+    
+}); 
+*/
 
 
 
