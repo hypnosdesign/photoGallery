@@ -9,26 +9,19 @@ var report = " ";
 
 
 
-
 /* Funzioni (Functions)
 ***********************************************/
 
 // print a message and append it in the gallery id.
 function print(message) {
-  var doc = document.getElementById('gallery');
+  var doc = document.getElementById("gallery");
   doc.innerHTML = message;
-}
-
-function appendBody(inner) {
-  var doc = document.getElementsByTagName('body');
-  doc.innerHTML = inner;
 }
 
 // return html of the thumbnail
 function getFigure() {
-  report += '<li class="item-gallery"><a class="item" href="'+ photo.image + '">';
-  report += '<figure class="images">';
-  report += '<img class="thumb" src="'+ photo.thumb +'" alt="'+ photo.title +'">';
+  report += '<li class="item-gallery"><a href="'+ photo.image +'"><figure>';
+  report += '<img src="'+ photo.thumb +'" alt="'+ photo.title +'">';
   report += '<figcaption class="caption">'+ photo.caption +'</figcaption>';
   report += "</figure></a></li>"; 
   return report;
@@ -51,44 +44,84 @@ for (var i = 0; i < photos.length; i++) {
   jQuery
 ***************************/
 
+
+
 /* Galleria (Gallery) 
 ***********************************************/
 
-// Ligthbox
-var $overlay      = $('<div class="overlay"></div>');
-var $img          = $('<img>');
-var $container    = $('<div class="container"></div>');
-var $controllers  = $('<div class="controllers">'+
-'<img class="close" src="img/icons/cross.svg">'+
-'<img class="next" src="img/icons/chevron-thin-right.svg">'+
-'<img class="prev" src="img/icons/chevron-thin-left.svg">'+                     
-'</div>');
+// Variabili (Variables) **********************
 
-$("body").append($overlay);
-$overlay.append($container);
+var $overLay = $('<div class="overlay"></div>');
+var $container = $(
+  '<div class="container">' 
+    +'<div class="controllers">'
+      +'<img class="close" src="img/icons/cross.svg">'
+      +'<img class="next" src="img/icons/chevron-thin-right.svg">'
+      +'<img class="prev" src="img/icons/chevron-thin-left.svg">'
+    +'</div>'
+  +'</div>');
+var $img = $('<img>');
+var $caption = $("<p></p>");
+
+
+// alls append
+$('body').append($overLay);
+$overLay.append($container);
 $container.append($img);
-$container.append($controllers);
+$container.append($caption);
 
-
-$('.item-gallery').click(function(e){
+      
+ 
+$('#gallery li').children().click( function(e){
   e.preventDefault();
-  var $location = $(this).children().attr("href");
-  $img.attr("src", $location);
+  getLocalItem(this);
+  $overLay.show();
+  
 
-  var $caption = $(this).find("figcaption").text();
-  $container.append('<p>'+ $caption +'</p>');
-  $overlay.show();
-});
+  $('.prev').click(function() { getPrevItem(); });
+  $('.next').click(function() { getNextItem(); });
 
-$('.close').click(function(){$overlay.hide();$('.container p').remove();});
+}); // fine click item-gallery
 
-// Navigation
-$('.next').click(function(e){
-  e.stopPropagation();
-  var $locationNext = $('.item-gallery').children().attr("href");
-  console.log($locationNext);
-  $img.attr("src", $locationNext);
-})
+
+
+// Functions *************************
+
+function getLocalItem (localItem) {  
+    thisItem = localItem;
+    var locationItem = $(localItem).attr("href");
+    $img.attr("src", locationItem);
+
+    var $captionText = $(localItem).find('figcaption').text();
+    $caption.text($captionText); }
+
+function getPrevItem() {
+    $imageParent = $(thisItem).parent().prev();
+      thisItem = $($imageParent).children();
+    getLocalItem(thisItem);}
+    
+
+function getNextItem() {
+    $imageParent = $(thisItem).parent().next();
+    thisItem = $($imageParent).children();
+    getLocalItem(thisItem);}
+    
+
+// reload the document
+$(".close").on( "click", (function() { location.reload(); }) );
+
+
+// Keyboard Navigation  **************************
+$("body").on("keyup", function(e){
+  if(e.keyCode === 37) {
+    getPrevItem();
+    $('.container p').remove();
+  } else if(e.keyCode === 39) {
+    getNextItem();
+    $('.container p').remove();      
+    }
+}); // end Keyboard Navigation
+
 
 
 /* Barra di ricerca (Search bar) 
