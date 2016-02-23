@@ -20,10 +20,10 @@ function print(message) {
 
 // return html of the thumbnail
 function getFigure() {
-  report += '<a class="link-photo" href="'+ photo.image +'"><figure class="images">';
+  report += '<li class="item-gallery"><a class="item" href="'+ photo.image +'"><figure class="images">';
   report += '<img class="thumb" src="'+ photo.thumb +'" alt="'+ photo.title +'">';
   report += '<figcaption class="caption">'+ photo.caption +'</figcaption>';
-  report += "</figure></a>"; 
+  report += "</figure></a></li>"; 
   return report;
 }
 
@@ -46,52 +46,87 @@ for (var i = 0; i < photos.length; i++) {
 
 /* Galleria (Gallery) 
 ***********************************************/
-var $overLay = $('<div class="overlay"></div>');
-var $container = $('<div class="container"></div>');
-var $controllers = $('<div class="controllers"></div>');
-var $img = $('<img>');
-var $icons = $('<img class="close" src="img/icons/cross.svg">'
-               +'<img class="next" src="img/icons/chevron-thin-right.svg">'
-               +'<img class="prev" src="img/icons/chevron-thin-left.svg">'
-               );
 
-//structure
-$("body").append($overLay);
-$overLay.append($container);
-$container.append($img);
-$container.append($controllers);
-$controllers.append($icons);
-var $title = $("img").attr("alt");
-console.log($title);
-// hide overlay
-$overLay.hide();
-
-//click image and show overlay
-$("#gallery").children().click(function(e){
-  e.preventDefault();
-  var $location = $(this).attr("href");
-  var $title = $(this).attr("alt");
-  console.log($title);
-  var $caption = $(this).text();
-  var $desc = $container.append('<p>'+$caption+'</p>')
-
-  $img.attr("src", $location);
-  $overLay.show();
+  // Variabili
+  var $overLay = $('<div class="overlay"></div>');
+  var $container = $('<div class="container"></div>');
+  var $controllers = $('<div class="controllers"></div>');
+  var $img = $('<img>');
   
-  // test
-  console.log(this);
-  console.log($location);
-  console.log($caption)
 
-  // click and hide overlay and caption
-  $(".overlay").click(function(){
-    $(this).hide('slow');
-    $('.container p').remove();
 
-  });
+  // struttura
+  var structure = function() {
+    $("body").append($overLay);
+    $overLay.append($container);
+    $container.append($img);
+    // append controllers
+    $container.append($controllers);
+    $controllers.append('<img class="close" src="img/icons/cross.svg">'
+                 +'<img class="next" src="img/icons/chevron-thin-right.svg">'
+                 +'<img class="prev" src="img/icons/chevron-thin-left.svg">'
+                 );
+  } // FINE struttura
 
-});
 
+
+  // Funzioni
+
+  function getItem(thisItem) { 
+    structure(); 
+    var $thisLocation = $(thisItem).children();
+    var $location = $($thisLocation).attr("href"); 
+    $img.attr("src", $location);
+    console.log($location);
+
+  } // fine funzione getItem
+
+
+
+
+  function getNextItem() {
+    var $nextLocation = $(thisItem).parent().next();
+    var $nextItem = $($nextLocation).children();
+    var $nextImageLocation = $($nextItem).attr("href");
+    $img.attr("src", $nextImageLocation);
+    getItem($nextLocation);
+  }
+
+
+
+  //*********************************************
+  // apri immagine in overlay quando ci clicchi sopra
+  /**********************************************/
+  
+  $(".item-gallery").click( function(e){
+    e.preventDefault();
+    // show overlay
+    $overLay.show();
+    // function getItem
+    getItem(this);
+
+    // set title
+  var $title = $(this).find(".thumb").attr("alt");
+  // set caption
+  var $caption = $(this).find("figcaption").text();
+  // append caption
+  $container.append('<p>'+$caption+'</p>');
+
+
+    // /**********************************************/
+    // // click and hide overlay and caption
+    // /**********************************************/
+     
+    $(".controllers img.close").on("click", (function(){ //hides the overlay and image when you click out
+      $('.overlay').hide();
+      $('.container p').remove();
+      $('.controllers').remove();
+    }));
+
+    // //*********************************************
+    // // fine chiudi overlay
+  
+  }); // fine click gallery a
 
 
 

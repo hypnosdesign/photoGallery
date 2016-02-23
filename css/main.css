@@ -17,7 +17,7 @@ main {
 	padding: 0 1em;
 }
 
-.images {
+.item-gallery {
 	display: inline-table;
 	margin: 2em 1em 0;
 	max-width: 200px;
@@ -132,7 +132,7 @@ figcaption:hover {
 	color: #fff;
 	text-align: left;
 	position: absolute;
-	bottom: 0;
+	bottom: 3px;
 	margin: 0;
 	font-family: 'Droid Sans Mono', sans-serif;
 }
