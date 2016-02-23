@@ -9,18 +9,25 @@ var report = " ";
 
 
 
+
 /* Funzioni (Functions)
 ***********************************************/
 
 // print a message and append it in the gallery id.
 function print(message) {
-  var doc = document.getElementById("gallery");
+  var doc = document.getElementById('gallery');
   doc.innerHTML = message;
+}
+
+function appendBody(inner) {
+  var doc = document.getElementsByTagName('body');
+  doc.innerHTML = inner;
 }
 
 // return html of the thumbnail
 function getFigure() {
-  report += '<li class="item-gallery"><a class="item" href="'+ photo.image +'"><figure class="images">';
+  report += '<li class="item-gallery"><a class="item" href="'+ photo.image + '">';
+  report += '<figure class="images">';
   report += '<img class="thumb" src="'+ photo.thumb +'" alt="'+ photo.title +'">';
   report += '<figcaption class="caption">'+ photo.caption +'</figcaption>';
   report += "</figure></a></li>"; 
@@ -47,87 +54,41 @@ for (var i = 0; i < photos.length; i++) {
 /* Galleria (Gallery) 
 ***********************************************/
 
-  // Variabili
-  var $overLay = $('<div class="overlay"></div>');
-  var $container = $('<div class="container"></div>');
-  var $controllers = $('<div class="controllers"></div>');
-  var $img = $('<img>');
-  
+// Ligthbox
+var $overlay      = $('<div class="overlay"></div>');
+var $img          = $('<img>');
+var $container    = $('<div class="container"></div>');
+var $controllers  = $('<div class="controllers">'+
+'<img class="close" src="img/icons/cross.svg">'+
+'<img class="next" src="img/icons/chevron-thin-right.svg">'+
+'<img class="prev" src="img/icons/chevron-thin-left.svg">'+                     
+'</div>');
+
+$("body").append($overlay);
+$overlay.append($container);
+$container.append($img);
+$container.append($controllers);
 
 
-  // struttura
-  var structure = function() {
-    $("body").append($overLay);
-    $overLay.append($container);
-    $container.append($img);
-    // append controllers
-    $container.append($controllers);
-    $controllers.append('<img class="close" src="img/icons/cross.svg">'
-                 +'<img class="next" src="img/icons/chevron-thin-right.svg">'
-                 +'<img class="prev" src="img/icons/chevron-thin-left.svg">'
-                 );
-  } // FINE struttura
+$('.item-gallery').click(function(e){
+  e.preventDefault();
+  var $location = $(this).children().attr("href");
+  $img.attr("src", $location);
 
-
-
-  // Funzioni
-
-  function getItem(thisItem) { 
-    structure(); 
-    var $thisLocation = $(thisItem).children();
-    var $location = $($thisLocation).attr("href"); 
-    $img.attr("src", $location);
-    console.log($location);
-
-  } // fine funzione getItem
-
-
-
-
-  function getNextItem() {
-    var $nextLocation = $(thisItem).parent().next();
-    var $nextItem = $($nextLocation).children();
-    var $nextImageLocation = $($nextItem).attr("href");
-    $img.attr("src", $nextImageLocation);
-    getItem($nextLocation);
-  }
-
-
-
-  //*********************************************
-  // apri immagine in overlay quando ci clicchi sopra
-  /**********************************************/
-  
-  $(".item-gallery").click( function(e){
-    e.preventDefault();
-    // show overlay
-    $overLay.show();
-    // function getItem
-    getItem(this);
-
-    // set title
-  var $title = $(this).find(".thumb").attr("alt");
-  // set caption
   var $caption = $(this).find("figcaption").text();
-  // append caption
-  $container.append('<p>'+$caption+'</p>');
+  $container.append('<p>'+ $caption +'</p>');
+  $overlay.show();
+});
 
+$('.close').click(function(){$overlay.hide();$('.container p').remove();});
 
-    // /**********************************************/
-    // // click and hide overlay and caption
-    // /**********************************************/
-     
-    $(".controllers img.close").on("click", (function(){ //hides the overlay and image when you click out
-      $('.overlay').hide();
-      $('.container p').remove();
-      $('.controllers').remove();
-    }));
-
-    // //*********************************************
-    // // fine chiudi overlay
-  
-  }); // fine click gallery a
-
+// Navigation
+$('.next').click(function(e){
+  e.stopPropagation();
+  var $locationNext = $('.item-gallery').children().attr("href");
+  console.log($locationNext);
+  $img.attr("src", $locationNext);
+})
 
 
 /* Barra di ricerca (Search bar) 
