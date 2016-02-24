@@ -87,7 +87,7 @@ figcaption {
 	color: transparent;
 	transition: .4s linear;
 	z-index: 2;
-	font-size: 0.7em;
+	font-size: .9em;
 	height: 200px;
 	border-radius: 25px;
 }

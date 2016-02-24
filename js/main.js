@@ -49,7 +49,7 @@ for (var i = 0; i < photos.length; i++) {
 /* Galleria (Gallery) 
 ***********************************************/
 
-// Variabili (Variables) **********************
+// Variabili (Variables)
 
 var $overLay = $('<div class="overlay"></div>');
 var $container = $(
@@ -66,62 +66,63 @@ var $caption = $("<p></p>");
 
 // alls append
 $('body').append($overLay);
-$overLay.append($container);
-$container.append($img);
-$container.append($caption);
+  $overLay.append($container);
+    $container.append($img);
+      $container.append($caption);
 
       
- 
+// clicks
 $('#gallery li').children().click( function(e){
   e.preventDefault();
   getLocalItem(this);
-  $overLay.show();
-  
+  $overLay.show("fast", "linear");
+  $container.show("slow");
 
-  $('.prev').click(function() { getPrevItem(); });
-  $('.next').click(function() { getNextItem(); });
+$('.prev').click(function() { getPrevItem(); });
+$('.next').click(function() { getNextItem(); });
 
 }); // fine click item-gallery
 
 
 
-// Functions *************************
+// Functions
 
 function getLocalItem (localItem) {  
-    thisItem = localItem;
+  thisItem = localItem;
     var locationItem = $(localItem).attr("href");
-    $img.attr("src", locationItem);
+      $img.attr("src", locationItem);
 
     var $captionText = $(localItem).find('figcaption').text();
-    $caption.text($captionText); }
+      $caption.text($captionText); }
+// end getLocalItem *********************************************
 
 function getPrevItem() {
-    $imageParent = $(thisItem).parent().prev();
-      thisItem = $($imageParent).children();
-    getLocalItem(thisItem);}
-    
+  $imageParent = $(thisItem).parent().prev();
+    thisItem = $($imageParent).children("a");
+      getLocalItem(thisItem);}
+// end getPrevItem **********************************************   
 
 function getNextItem() {
-    $imageParent = $(thisItem).parent().next();
-    thisItem = $($imageParent).children();
-    getLocalItem(thisItem);}
-    
+  $imageParent = $(thisItem).parent().next();
+    thisItem = $($imageParent).children("a");
+      getLocalItem(thisItem);}
+// end getNextItem **********************************************     
 
 // reload the document
 $(".close").on( "click", (function() { location.reload(); }) );
 
 
-// Keyboard Navigation  **************************
+// Keyboard Navigation 
 $("body").on("keyup", function(e){
   if(e.keyCode === 37) {
     getPrevItem();
-    $('.container p').remove();
+    //$('.container p').remove();
   } else if(e.keyCode === 39) {
     getNextItem();
-    $('.container p').remove();      
+    //$('.container p').remove();      
     }
-}); // end Keyboard Navigation
-
+}); 
+// end Keyboard Navigation ***************************************
 
 
 /* Barra di ricerca (Search bar) 
@@ -133,7 +134,7 @@ $("body").on("keyup", function(e){
 // searching function
 function searching(input, list) {
   
-  // Oni volta che input cambia allora...
+  // Ogni volta che input cambia allora...
   $(input).keyup( function () {
     
     // setto variabile per i valori e trasformo in lower case
@@ -148,20 +149,16 @@ function searching(input, list) {
       
       // if typed is not a blank space
       if(typed !== " ") {
-
         // fadeout the anchors if type is not contained in list
-        $(list).find("a:not(:contains("+typed+"))").fadeOut("fast");
+        $(list).find("li:not(:contains("+typed+"))").fadeOut("fast");
         // fadein the anchors is contained in list
-        $(list).find("a:contains("+typed+")").fadeIn("slow");
-
+        $(list).find("li:contains("+typed+")").fadeIn("slow");
       }else {
-
         // if type is equal to a white space or result not found
         $(list).find("figure").show();
-
       }
+  }); // end keyup
+} // end function searching ***********************************
 
-  });
-}
 //start searching function passing the arguments
 searching($("#search"),$("#gallery"));
