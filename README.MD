@@ -8,7 +8,7 @@ To complete this project, follow the instructions below. If you get stuck, ask a
 
 	-The numbers and dotted lines in the mockup provide size information to help you build the project -- don't include them in your final design.
 
-3. Find a jQuery plugin for creating a photo gallery or write your own script.
+3. [ ] Find a jQuery plugin for creating a photo gallery or write your own script.
 	- The gallery must include the ability to click on photos and view them in a lightbox (see the photo_lightbox.png file for the design).
 
 4. [x] Add text captions to the images when viewed in the lightbox.
@@ -20,21 +20,21 @@ To complete this project, follow the instructions below. If you get stuck, ask a
 This could be a jQuery plugin that you find on the web, or code that you write yourself.
 
 
-7. [] Make sure to check your code is valid by running it through an HTML and CSS validator.
+7. [ ] Make sure to check your code is valid by running it through an HTML and CSS validator.
 	- Links to the validators can be found in the Project Resources. This will help you spot any errors that might be in your code.
 	- There are a few exceptions that you don’t need to fix:
 		- Don’t worry about any warnings, we just need you to check any errors that might be there.
 		- If CSS validator flags use of calc, or vendor prefixes these errors should be ignored.
 		- If HTML validator flags use of pipe (‘|’) in Google font links/URLs this error can also be ignored.
 
-- You should also check for issues with your JavaScript code using JSHint, linked in the Project Resources.
+	- You should also check for issues with your JavaScript code using JSHint, linked in the Project Resources.
 	- JSHint may show you some warnings, so make sure to check through those for any potential problems.
 	- You do not need to fix every warning listed but reviewing them can be useful.
 
 ##Extra Credit
 To get an "exceeds" rating, you can expand on the project in the following ways:
 
-1. [] Expand on the design in the mockup
+1. [ ] Expand on the design in the mockup
 	-Make sure you include a thumbnail gallery, but add your own colors, fonts and other visual improvements.
 2. [x] Keyboard navigation for browsing photos.
 3. Support for additional media types like YouTube videos.
