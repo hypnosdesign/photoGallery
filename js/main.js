@@ -20,10 +20,22 @@ function print(message) {
 
 // return html of the thumbnail
 function getFigure() {
-  report += '<li class="item-gallery"><a href="'+ photo.image +'"><figure>';
-  report += '<img src="'+ photo.thumb +'" alt="'+ photo.title +'">';
-  report += '<figcaption class="caption">'+ photo.caption +'</figcaption>';
-  report += "</figure></a></li>"; 
+  if(item.image){
+    report += '<li class="item-gallery"><a href="'+ item.image +'"><figure>';
+    report += '<img src="'+ item.thumb +'" alt="'+ item.title +'">';
+    report += '<figcaption class="caption">'+ item.caption +'</figcaption>';
+    report += "</figure></a></li>"; 
+  } else if (item.video){
+    report += '<li class="item-gallery"><a href="'+ item.video +'">';
+    report += '<video poster="'+ item.thumb +'">';
+    report += '<p class="caption">'+ item.caption +'</p>';
+    report += '</video></a></li>';
+    //'<iframe width="auto" src="'+ item.video +'" frameborder="0"></iframe>'
+    // <video controls="true">
+    // <source src="www.youtube.com/watch?v=3bGNuRtlqAQ" type="video/mp4" />
+    // </video>
+  }
+
   return report;
 }
 
@@ -33,9 +45,9 @@ function getFigure() {
 ***********************************************/
 
 // show images in the page
-for (var i = 0; i < photos.length; i++) {
-  photo = photos[i];
-  print(getFigure(photo));
+for (var i = 0; i < items.length; i++) {
+  item = items[i];
+  print(getFigure(item));
 } // fine ciclo for (End for cicle)
 
 
@@ -62,14 +74,13 @@ var $container = $(
   +'</div>');
 var $img = $('<img>');
 var $caption = $("<p></p>");
+var $vid = $('<video controls="true"></video>');
 
 
 // alls append
 $('body').append($overLay);
   $overLay.append($container);
-    $container.append($img);
-      $container.append($caption);
-
+    $container.append($caption);
       
 // clicks
 $('#gallery li').children().click( function(e){
@@ -90,9 +101,18 @@ $('.next').click(function() { getNextItem(); });
 function getLocalItem (localItem) {  
   thisItem = localItem;
     var locationItem = $(localItem).attr("href");
-      $img.attr("src", locationItem);
+    if($('img')){
+      $container.append($img);
+      $vid.remove();
+      $img.attr("src", locationItem);} 
+    if($('video')){
+      $container.append($vid);
+      $img.remove();
+      $vid.attr("src", locationItem);}
+      
+      
 
-    var $captionText = $(localItem).find('figcaption').text();
+    var $captionText = $(localItem).find('.caption').text();
       $caption.text($captionText); }
 // end getLocalItem *********************************************
 
@@ -138,7 +158,7 @@ for (var i = 0, l = videos.length; i < l; i++) {
             if (isMp4) return source.src;
         }
         return null;
-    })();
+    })(); 
     if (src) {
         var isYoutube = src && src.match(/(?:youtu|youtube)(?:\.com|\.be)\/([\w\W]+)/i);
         if (isYoutube) {
@@ -150,7 +170,6 @@ for (var i = 0, l = videos.length; i < l; i++) {
         }
     }
 }
-
 
 /* Barra di ricerca (Search bar) 
 ***********************************************/

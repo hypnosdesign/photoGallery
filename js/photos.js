@@ -1,4 +1,4 @@
-var photos = [
+var items = [
 
 	{   image 	: "img/01.jpg",
 			thumb 	: "img/thumbs/01.jpg",
@@ -60,8 +60,8 @@ var photos = [
 			title 	: "Bluebells",
 			caption : " I walked through this meadow of bluebells and got a good view of the snow on the mountain before the fog came in."
 	},
-	{   video 	: "https://www.youtube.com/embed/GBDY3L6GDPA",
-			poster 	: "img/thumbs/12.jpg",
+	{   video 	: "https://youtu.be/GBDY3L6GDPA",
+			thumb 	: "img/Youtube-poster.jpg",
 			title 	: "Video Test",
 			caption : "Video caption test. "
 	}
